@@ -1,0 +1,89 @@
+/* style.css */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f9ff;
+  color: #1a1a1a;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.navbar {
+  background-color: #004080;
+}
+
+.navbar-brand,
+.nav-link {
+  color: white !important;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
+.card {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.btn {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  background-color: #0059b3;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #004080;
+}
+
+.btn-outline-primary {
+  font-weight: 500;
+}
+
+.form-control {
+  font-size: 1.1rem;
+  padding: 0.6rem;
+  border-radius: 5px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #0059b3;
+  box-shadow: 0 0 3px rgba(0, 89, 179, 0.5);
+}
+
+h1, h2, h3 {
+  color: #00264d;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  font-size: 1rem;
+}
