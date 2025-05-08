@@ -45,9 +45,9 @@ Este projeto é o resultado do **Projeto Integrador** do curso de **Gestão de T
 
 ---
 
-## 🔗 Link de demonstração (futuro)
+## 🔗 Link de demonstração
 
-(Embreve)
+https://alehsm.github.io/CuidarMais/
 
 ---
 
