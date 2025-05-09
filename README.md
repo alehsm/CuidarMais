@@ -30,7 +30,7 @@ Este projeto é o resultado do **Projeto Integrador** do curso de **Gestão de T
 | `perfil.html`                | Área do usuário                     |
 | `css/style.css`              | Estilos personalizados              |
 | `js/script.js`               | Lógica de navegação e autenticação  |
-| `assets/` ou `img/`          | Imagens e ícones fictícios          |
+| `img/`                       | Imagens e ícones fictícios          |
 
 ---
 
