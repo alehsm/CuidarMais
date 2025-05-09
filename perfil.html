@@ -20,132 +20,173 @@
 </head>
 <body data-auth="true">
 
-  <!-- Barra de Acessibilidade -->
-  <div class="acessibilidade-bar" role="region" aria-label="Barra de acessibilidade">
-    <button onclick="aumentarFonte()" aria-label="Aumentar fonte">A+</button>
-    <button onclick="diminuirFonte()" aria-label="Diminuir fonte">A-</button>
-    <button onclick="alternarContraste()" aria-label="Ativar ou desativar alto contraste">Contraste</button>
-    <span class="sr-only" aria-live="polite" id="feedbackAcessibilidade"></span>
+<!-- Barra de Acessibilidade -->
+<div class="acessibilidade-bar" role="region" aria-label="Barra de acessibilidade">
+  <button onclick="aumentarFonte()" aria-label="Aumentar fonte">A+</button>
+  <button onclick="diminuirFonte()" aria-label="Diminuir fonte">A-</button>
+  <button onclick="alternarContraste()" aria-label="Ativar ou desativar alto contraste">Contraste</button>
+  <span class="sr-only" aria-live="polite" id="feedbackAcessibilidade"></span>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Cuidar+</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+        <li class="nav-item"><a class="nav-link" href="profissionais.html">Profissionais</a></li>
+        <li class="nav-item"><a class="nav-link" href="carteira.html">Carteira</a></li>
+        <li class="nav-item"><a class="nav-link active" href="perfil.html">Meu Perfil</a></li>
+        <li class="nav-item d-none" id="userEmail"><a class="nav-link disabled" href="#"></a></li>
+        <li class="nav-item" id="authAction"><a class="nav-link" href="login.html">Entrar</a></li>
+      </ul>
+    </div>
   </div>
+</nav>
 
-  <!-- Conteúdo -->
-  <main class="container my-5">
-    <h1 class="text-center mb-4">Meu Perfil</h1>
+<main class="container my-5">
+  <h1 class="text-center mb-4">Meu Perfil</h1>
 
-    <form id="perfilForm" class="mx-auto needs-validation" style="max-width: 500px;" novalidate>
-      <div class="mb-3">
-        <label for="nome" class="form-label">Nome completo</label>
-        <input type="text" class="form-control" id="nome" required aria-describedby="nomeHelp"/>
-        <div class="invalid-feedback" role="alert" id="nomeHelp">Informe seu nome completo.</div>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input type="email" class="form-control" id="email" required aria-describedby="emailHelp"/>
-        <div class="invalid-feedback" role="alert" id="emailHelp">Digite um e-mail válido.</div>
-      </div>
-      <div class="mb-3">
-        <label for="telefone" class="form-label">Telefone</label>
-        <input type="tel" class="form-control" id="telefone" required pattern="\\d{10,11}" aria-describedby="telHelp"/>
-        <div class="invalid-feedback" role="alert" id="telHelp">Digite um telefone com 10 ou 11 dígitos.</div>
-      </div>
-      <div class="mb-3">
-        <label for="endereco" class="form-label">Endereço</label>
-        <input type="text" class="form-control" id="endereco" required aria-describedby="enderecoHelp"/>
-        <div class="invalid-feedback" role="alert" id="enderecoHelp">Informe seu endereço.</div>
-      </div>
-      <div class="text-end">
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <button type="button" class="btn btn-secondary" onclick="limparPerfil()">Limpar</button>
-      </div>
-    </form>
-  </main>
+  <form id="perfilForm" class="mx-auto needs-validation" style="max-width: 500px;" novalidate>
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome completo</label>
+      <input type="text" class="form-control" id="nome" required aria-describedby="nomeHelp"/>
+      <div class="invalid-feedback" role="alert" id="nomeHelp">Informe seu nome completo.</div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="email" required aria-describedby="emailHelp"/>
+      <div class="invalid-feedback" role="alert" id="emailHelp">Digite um e-mail válido.</div>
+    </div>
+    <div class="mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input type="tel" class="form-control" id="telefone" required aria-describedby="telHelp"/>
+      <div class="invalid-feedback" role="alert" id="telHelp">Digite um telefone válido com DDD. Ex: (11) 2345-6789 ou (11) 91234-5678</div>
+    </div>
+    <div class="mb-3">
+      <label for="endereco" class="form-label">Endereço</label>
+      <input type="text" class="form-control" id="endereco" required aria-describedby="enderecoHelp"/>
+      <div class="invalid-feedback" role="alert" id="enderecoHelp">Informe seu endereço.</div>
+    </div>
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button type="button" class="btn btn-secondary" onclick="limparPerfil()">Limpar</button>
+    </div>
+  </form>
+</main>
 
-  <script>
-    function carregarPerfil() {
-      const perfil = JSON.parse(localStorage.getItem("perfil")) || {
-        nome: "",
-        email: localStorage.getItem("usuarioLogado") || "",
-        telefone: "",
-        endereco: ""
-      };
-      document.getElementById("nome").value = perfil.nome;
-      document.getElementById("email").value = perfil.email;
-      document.getElementById("telefone").value = perfil.telefone;
-      document.getElementById("endereco").value = perfil.endereco;
-    }
+<script>
+  function carregarPerfil() {
+    const perfil = JSON.parse(localStorage.getItem("perfil")) || {
+      nome: "",
+      email: localStorage.getItem("usuarioLogado") || "",
+      telefone: "",
+      endereco: ""
+    };
+    document.getElementById("nome").value = perfil.nome;
+    document.getElementById("email").value = perfil.email;
+    document.getElementById("telefone").value = perfil.telefone;
+    document.getElementById("endereco").value = perfil.endereco;
+  }
 
-    function limparPerfil() {
-      localStorage.removeItem("perfil");
-      carregarPerfil();
-    }
+  function limparPerfil() {
+    localStorage.removeItem("perfil");
+    carregarPerfil();
+  }
 
-    function salvarPerfil(e) {
-      e.preventDefault();
-      const form = document.getElementById("perfilForm");
-      const nome = document.getElementById("nome");
-      const email = document.getElementById("email");
-      const telefone = document.getElementById("telefone");
-      const endereco = document.getElementById("endereco");
+  function salvarPerfil(e) {
+    e.preventDefault();
+    const form = document.getElementById("perfilForm");
+    const nome = document.getElementById("nome");
+    const email = document.getElementById("email");
+    const telefone = document.getElementById("telefone");
+    const endereco = document.getElementById("endereco");
 
-      if (!form.checkValidity()) {
+    const telefoneValido = /^\(\d{2}\) \d{4,5}-\d{4}$/.test(telefone.value);
+
+    if (!form.checkValidity() || !telefoneValido) {
+      if (!telefoneValido) {
+        telefone.setCustomValidity("Formato inválido");
+        telefone.reportValidity();
+        telefone.focus();
+      } else {
+        telefone.setCustomValidity("");
         if (!nome.checkValidity()) nome.focus();
         else if (!email.checkValidity()) email.focus();
         else if (!telefone.checkValidity()) telefone.focus();
         else if (!endereco.checkValidity()) endereco.focus();
-        form.classList.add("was-validated");
-        return;
       }
-
-      const dados = {
-        nome: nome.value,
-        email: email.value,
-        telefone: telefone.value,
-        endereco: endereco.value
-      };
-      localStorage.setItem("perfil", JSON.stringify(dados));
-      alert("Perfil salvo com sucesso!");
+      form.classList.add("was-validated");
+      return;
     }
 
-    document.getElementById("perfilForm").addEventListener("submit", salvarPerfil);
+    telefone.setCustomValidity("");
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const email = localStorage.getItem("usuarioLogado");
-      if (!email) {
-        window.location.href = "login.html";
-        return;
-      }
+    const dados = {
+      nome: nome.value,
+      email: email.value,
+      telefone: telefone.value,
+      endereco: endereco.value
+    };
+    localStorage.setItem("perfil", JSON.stringify(dados));
+    alert("Perfil salvo com sucesso!");
+  }
 
-      carregarPerfil();
-    });
-  </script>
-  
-  <script>
-    let tamanhoFonte = 100;
+  document.getElementById("perfilForm").addEventListener("submit", salvarPerfil);
 
-    function aumentarFonte() {
-      if (tamanhoFonte < 150) {
-        tamanhoFonte += 10;
-        document.body.style.fontSize = tamanhoFonte + '%';
-        document.getElementById("feedbackAcessibilidade").textContent = "Fonte aumentada.";
-      }
+  // Máscara dinâmica
+  document.getElementById("telefone").addEventListener("input", function () {
+    let num = this.value.replace(/\D/g, "");
+    if (num.length > 11) num = num.slice(0, 11);
+    let formatado = num;
+    if (num.length > 2 && num.length <= 6) {
+      formatado = `(${num.slice(0, 2)}) ${num.slice(2)}`;
+    } else if (num.length > 6) {
+      formatado = `(${num.slice(0, 2)}) ${num.slice(2, num.length - 4)}-${num.slice(-4)}`;
     }
+    this.value = formatado;
+  });
 
-    function diminuirFonte() {
-      if (tamanhoFonte > 80) {
-        tamanhoFonte -= 10;
-        document.body.style.fontSize = tamanhoFonte + '%';
-        document.getElementById("feedbackAcessibilidade").textContent = "Fonte reduzida.";
-      }
+  document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem("usuarioLogado");
+    if (!email) {
+      window.location.href = "login.html";
+      return;
     }
+    carregarPerfil();
+  });
 
-    function alternarContraste() {
-      document.body.classList.toggle('contraste');
-      const ativado = document.body.classList.contains('contraste');
-      document.getElementById("feedbackAcessibilidade").textContent =
-        ativado ? "Alto contraste ativado." : "Alto contraste desativado.";
+  // Acessibilidade
+  let tamanhoFonte = 100;
+  function aumentarFonte() {
+    if (tamanhoFonte < 150) {
+      tamanhoFonte += 10;
+      document.body.style.fontSize = tamanhoFonte + '%';
+      document.getElementById("feedbackAcessibilidade").textContent = "Fonte aumentada.";
     }
-  </script>
+  }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  function diminuirFonte() {
+    if (tamanhoFonte > 80) {
+      tamanhoFonte -= 10;
+      document.body.style.fontSize = tamanhoFonte + '%';
+      document.getElementById("feedbackAcessibilidade").textContent = "Fonte reduzida.";
+    }
+  }
+
+  function alternarContraste() {
+    document.body.classList.toggle('contraste');
+    const ativado = document.body.classList.contains('contraste');
+    document.getElementById("feedbackAcessibilidade").textContent =
+      ativado ? "Alto contraste ativado." : "Alto contraste desativado.";
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
