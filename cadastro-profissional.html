@@ -1,4 +1,3 @@
-<!-- cadastro-profissional.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,32 +8,54 @@
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .invalid-feedback {
+      display: none;
+      color: #d9534f;
+    }
+    input:invalid + .invalid-feedback {
+      display: block;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Barra de Acessibilidade -->
+  <div class="acessibilidade-bar" role="region" aria-label="Barra de acessibilidade">
+    <button onclick="aumentarFonte()" aria-label="Aumentar fonte">A+</button>
+    <button onclick="diminuirFonte()" aria-label="Diminuir fonte">A-</button>
+    <button onclick="alternarContraste()" aria-label="Ativar ou desativar alto contraste">Contraste</button>
+    <span class="sr-only" aria-live="polite" id="feedbackAcessibilidade"></span>
+  </div>
 
   <main class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
     <h1 class="mb-4">Cadastro de Profissional</h1>
 
-    <form id="form-cadastro-profissional" class="w-100" style="max-width: 500px;">
+    <form id="form-cadastro-profissional" class="w-100 needs-validation" style="max-width: 500px;" novalidate>
       <div class="mb-3">
         <label for="nome" class="form-label">Nome completo</label>
-        <input type="text" class="form-control" id="nome" required />
+        <input type="text" class="form-control" id="nome" required aria-describedby="nomeHelp"/>
+        <div class="invalid-feedback" role="alert" id="nomeHelp">Informe o nome completo.</div>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
-        <input type="email" class="form-control" id="email" required />
+        <input type="email" class="form-control" id="email" required aria-describedby="emailHelp"/>
+        <div class="invalid-feedback" role="alert" id="emailHelp">Informe um e-mail válido.</div>
       </div>
       <div class="mb-3">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="tel" class="form-control" id="telefone" required />
+        <input type="tel" class="form-control" id="telefone" required aria-describedby="telefoneHelp" pattern="\\d{10,11}" />
+        <div class="invalid-feedback" role="alert" id="telefoneHelp">Informe um telefone com 10 ou 11 dígitos.</div>
       </div>
       <div class="mb-3">
         <label for="especialidade" class="form-label">Especialidade</label>
-        <input type="text" class="form-control" id="especialidade" required />
+        <input type="text" class="form-control" id="especialidade" required aria-describedby="espHelp"/>
+        <div class="invalid-feedback" role="alert" id="espHelp">Informe a especialidade.</div>
       </div>
       <div class="mb-3">
         <label for="formacao" class="form-label">Formação Profissional</label>
-        <input type="text" class="form-control" id="formacao" required />
+        <input type="text" class="form-control" id="formacao" required aria-describedby="formacaoHelp"/>
+        <div class="invalid-feedback" role="alert" id="formacaoHelp">Informe a formação.</div>
       </div>
       <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
     </form>
@@ -43,18 +64,31 @@
   <script>
     document.getElementById("form-cadastro-profissional").addEventListener("submit", function(e) {
       e.preventDefault();
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
-      const telefone = document.getElementById("telefone").value;
-      const especialidade = document.getElementById("especialidade").value;
-      const formacao = document.getElementById("formacao").value;
+      const form = e.target;
 
-      if (!nome || !email || !telefone || !especialidade || !formacao) {
-        alert("Preencha todos os campos.");
+      const nome = document.getElementById("nome");
+      const email = document.getElementById("email");
+      const telefone = document.getElementById("telefone");
+      const especialidade = document.getElementById("especialidade");
+      const formacao = document.getElementById("formacao");
+
+      if (!form.checkValidity()) {
+        if (!nome.checkValidity()) nome.focus();
+        else if (!email.checkValidity()) email.focus();
+        else if (!telefone.checkValidity()) telefone.focus();
+        else if (!especialidade.checkValidity()) especialidade.focus();
+        else if (!formacao.checkValidity()) formacao.focus();
+        form.classList.add("was-validated");
         return;
       }
 
-      const novoProfissional = { nome, email, telefone, especialidade, formacao };
+      const novoProfissional = {
+        nome: nome.value,
+        email: email.value,
+        telefone: telefone.value,
+        especialidade: especialidade.value,
+        formacao: formacao.value
+      };
 
       let profissionais = JSON.parse(localStorage.getItem("profissionais")) || [];
       profissionais.push(novoProfissional);
@@ -63,6 +97,33 @@
       alert("Cadastro profissional realizado com sucesso!");
       window.location.href = "profissionais.html";
     });
+  </script>
+
+  <script>
+    let tamanhoFonte = 100;
+
+    function aumentarFonte() {
+      if (tamanhoFonte < 150) {
+        tamanhoFonte += 10;
+        document.body.style.fontSize = tamanhoFonte + '%';
+        document.getElementById("feedbackAcessibilidade").textContent = "Fonte aumentada.";
+      }
+    }
+
+    function diminuirFonte() {
+      if (tamanhoFonte > 80) {
+        tamanhoFonte -= 10;
+        document.body.style.fontSize = tamanhoFonte + '%';
+        document.getElementById("feedbackAcessibilidade").textContent = "Fonte reduzida.";
+      }
+    }
+
+    function alternarContraste() {
+      document.body.classList.toggle('contraste');
+      const ativado = document.body.classList.contains('contraste');
+      document.getElementById("feedbackAcessibilidade").textContent =
+        ativado ? "Alto contraste ativado." : "Alto contraste desativado.";
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

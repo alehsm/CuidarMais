@@ -1,4 +1,3 @@
-<!-- perfil.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,50 +8,50 @@
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .invalid-feedback {
+      display: none;
+      color: #d9534f;
+    }
+    input:invalid + .invalid-feedback {
+      display: block;
+    }
+  </style>
 </head>
 <body data-auth="true">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Cuidar+</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
-          <li class="nav-item"><a class="nav-link" href="profissionais.html">Profissionais</a></li>
-          <li class="nav-item"><a class="nav-link" href="carteira.html">Carteira</a></li>
-          <li class="nav-item"><a class="nav-link active" href="perfil.html">Meu Perfil</a></li>
-          <li class="nav-item d-none" id="userEmail"><a class="nav-link disabled" href="#"></a></li>
-          <li class="nav-item" id="authAction"><a class="nav-link" href="login.html">Entrar</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- Barra de Acessibilidade -->
+  <div class="acessibilidade-bar" role="region" aria-label="Barra de acessibilidade">
+    <button onclick="aumentarFonte()" aria-label="Aumentar fonte">A+</button>
+    <button onclick="diminuirFonte()" aria-label="Diminuir fonte">A-</button>
+    <button onclick="alternarContraste()" aria-label="Ativar ou desativar alto contraste">Contraste</button>
+    <span class="sr-only" aria-live="polite" id="feedbackAcessibilidade"></span>
+  </div>
 
   <!-- Conteúdo -->
   <main class="container my-5">
     <h1 class="text-center mb-4">Meu Perfil</h1>
 
-    <form id="perfilForm" class="mx-auto" style="max-width: 500px;">
+    <form id="perfilForm" class="mx-auto needs-validation" style="max-width: 500px;" novalidate>
       <div class="mb-3">
         <label for="nome" class="form-label">Nome completo</label>
-        <input type="text" class="form-control" id="nome" required />
+        <input type="text" class="form-control" id="nome" required aria-describedby="nomeHelp"/>
+        <div class="invalid-feedback" role="alert" id="nomeHelp">Informe seu nome completo.</div>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">E-mail</label>
-        <input type="email" class="form-control" id="email" required />
+        <input type="email" class="form-control" id="email" required aria-describedby="emailHelp"/>
+        <div class="invalid-feedback" role="alert" id="emailHelp">Digite um e-mail válido.</div>
       </div>
       <div class="mb-3">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="tel" class="form-control" id="telefone" required />
+        <input type="tel" class="form-control" id="telefone" required pattern="\\d{10,11}" aria-describedby="telHelp"/>
+        <div class="invalid-feedback" role="alert" id="telHelp">Digite um telefone com 10 ou 11 dígitos.</div>
       </div>
       <div class="mb-3">
         <label for="endereco" class="form-label">Endereço</label>
-        <input type="text" class="form-control" id="endereco" />
+        <input type="text" class="form-control" id="endereco" required aria-describedby="enderecoHelp"/>
+        <div class="invalid-feedback" role="alert" id="enderecoHelp">Informe seu endereço.</div>
       </div>
       <div class="text-end">
         <button type="submit" class="btn btn-primary">Salvar</button>
@@ -60,14 +59,6 @@
       </div>
     </form>
   </main>
-
-  <!-- Rodapé -->
-  <footer class="footer mt-5">
-    <div class="container">
-      <p>&copy; 2025 Cuidar+. Todos os direitos reservados.</p>
-      <p><span class="material-icons">email</span> contato@cuidarmais.com</p>
-    </div>
-  </footer>
 
   <script>
     function carregarPerfil() {
@@ -83,21 +74,36 @@
       document.getElementById("endereco").value = perfil.endereco;
     }
 
-    function salvarPerfil(e) {
-      e.preventDefault();
-      const dados = {
-        nome: document.getElementById("nome").value,
-        email: document.getElementById("email").value,
-        telefone: document.getElementById("telefone").value,
-        endereco: document.getElementById("endereco").value
-      };
-      localStorage.setItem("perfil", JSON.stringify(dados));
-      alert("Perfil salvo com sucesso!");
-    }
-
     function limparPerfil() {
       localStorage.removeItem("perfil");
       carregarPerfil();
+    }
+
+    function salvarPerfil(e) {
+      e.preventDefault();
+      const form = document.getElementById("perfilForm");
+      const nome = document.getElementById("nome");
+      const email = document.getElementById("email");
+      const telefone = document.getElementById("telefone");
+      const endereco = document.getElementById("endereco");
+
+      if (!form.checkValidity()) {
+        if (!nome.checkValidity()) nome.focus();
+        else if (!email.checkValidity()) email.focus();
+        else if (!telefone.checkValidity()) telefone.focus();
+        else if (!endereco.checkValidity()) endereco.focus();
+        form.classList.add("was-validated");
+        return;
+      }
+
+      const dados = {
+        nome: nome.value,
+        email: email.value,
+        telefone: telefone.value,
+        endereco: endereco.value
+      };
+      localStorage.setItem("perfil", JSON.stringify(dados));
+      alert("Perfil salvo com sucesso!");
     }
 
     document.getElementById("perfilForm").addEventListener("submit", salvarPerfil);
@@ -110,18 +116,34 @@
       }
 
       carregarPerfil();
-
-      const authAction = document.getElementById("authAction");
-      const userEmail = document.getElementById("userEmail");
-      userEmail.classList.remove("d-none");
-      userEmail.querySelector("a").textContent = email;
-      authAction.innerHTML = '<a class="nav-link" href="#" id="logout">Sair</a>';
-      document.getElementById("logout").addEventListener("click", () => {
-        localStorage.removeItem("usuarioLogado");
-        alert("Você saiu com sucesso.");
-        window.location.href = "index.html";
-      });
     });
+  </script>
+  
+  <script>
+    let tamanhoFonte = 100;
+
+    function aumentarFonte() {
+      if (tamanhoFonte < 150) {
+        tamanhoFonte += 10;
+        document.body.style.fontSize = tamanhoFonte + '%';
+        document.getElementById("feedbackAcessibilidade").textContent = "Fonte aumentada.";
+      }
+    }
+
+    function diminuirFonte() {
+      if (tamanhoFonte > 80) {
+        tamanhoFonte -= 10;
+        document.body.style.fontSize = tamanhoFonte + '%';
+        document.getElementById("feedbackAcessibilidade").textContent = "Fonte reduzida.";
+      }
+    }
+
+    function alternarContraste() {
+      document.body.classList.toggle('contraste');
+      const ativado = document.body.classList.contains('contraste');
+      document.getElementById("feedbackAcessibilidade").textContent =
+        ativado ? "Alto contraste ativado." : "Alto contraste desativado.";
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

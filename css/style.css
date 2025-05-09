@@ -87,3 +87,61 @@ h1, h2, h3 {
   vertical-align: middle;
   font-size: 1rem;
 }
+
+/* Barra de acessibilidade */
+.acessibilidade-bar {
+  background-color: #00264d;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: right;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+.acessibilidade-bar button {
+  background-color: white;
+  color: #00264d;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.acessibilidade-bar button:hover {
+  background-color: #0059b3;
+  color: white;
+}
+
+/* Modo alto contraste */
+body.contraste {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+body.contraste a,
+body.contraste .nav-link,
+body.contraste .btn {
+  color: yellow !important;
+  background-color: black !important;
+  border-color: yellow !important;
+}
+body.contraste input,
+body.contraste select,
+body.contraste textarea {
+  background-color: black !important;
+  color: yellow !important;
+  border: 1px solid yellow !important;
+}
+
+/* Leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
