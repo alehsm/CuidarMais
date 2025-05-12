@@ -156,9 +156,7 @@ body.contraste textarea {
 }
 
 .navbar-brand img {
-  max-height: 100px;
-  width: auto;
   height: auto;
-  padding: 4px 0;
+  max-height: 60px;
+  width: auto;
 }
-
