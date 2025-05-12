@@ -155,4 +155,10 @@ body.contraste textarea {
   background-color: #fff;
 }
 
+.navbar-brand img {
+  max-height: 100px;
+  width: auto;
+  height: auto;
+  padding: 4px 0;
+}
 
