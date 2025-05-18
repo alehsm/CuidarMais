@@ -49,6 +49,15 @@ Este projeto é o resultado do **Projeto Integrador** do curso de **Gestão de T
 
 https://alehsm.github.io/CuidarMais/
 
+## 🎥 Demonstração do Projeto
+
+Assista abaixo à demonstração do funcionamento do site Cuidar+:
+
+[![Demonstração do Projeto](https://img.youtube.com/vi/ID_DO_VIDEO/hqdefault.jpg)](https://youtu.be/iEhWpRxdMJY)
+
+> Clique na imagem para assistir no YouTube.
+
+
 ---
 
 > Projeto acadêmico desenvolvido com fins educacionais.
