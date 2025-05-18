@@ -49,14 +49,15 @@ Este projeto é o resultado do **Projeto Integrador** do curso de **Gestão de T
 
 https://alehsm.github.io/CuidarMais/
 
+---
+
 ## 🎥 Demonstração do Projeto
 
-Assista abaixo à demonstração do funcionamento do site Cuidar+:
+Assista abaixo à demonstração funcional do site **Cuidar+**, com foco em acessibilidade e usabilidade para idosos:
 
-[![Demonstração do Projeto](https://img.youtube.com/vi/ID_DO_VIDEO/hqdefault.jpg)](https://youtu.be/iEhWpRxdMJY)
+[![Demonstração do Projeto Cuidar+](https://img.youtube.com/vi/iEhWpRxdMJY/hqdefault.jpg)](https://youtu.be/iEhWpRxdMJY)
 
-> Clique na imagem para assistir no YouTube.
-
+> Clique na imagem acima para assistir no YouTube.
 
 ---
 
